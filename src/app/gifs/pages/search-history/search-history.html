@@ -1,0 +1,14 @@
+<h2 class="text-2xl font-bold mt-5">{{ query()?.['query'] }}</h2>
+<h3 class="text-sm text-gray-500">Resultados de la busqueda</h3>
+
+<section class="py-5">
+    @if (gifsFacade.isLoading()) {
+    <p>Cargando...</p>
+    } @else if (gifsFacade.error()) {
+    <p class="text-red-500">{{ gifsFacade.error() }}</p>
+    } @else if (history().length === 0) {
+    <p>No se encontraron gifs</p>
+    } @else {
+    <gifs-gif-list [gifs]="history()" />
+    }
+</section>

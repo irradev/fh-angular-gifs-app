@@ -1,0 +1,20 @@
+<h2 class="text-2xl font-bold mt-5">Buscar Gifs</h2>
+<h3 class="text-sm text-gray-500">Buscar gifs por nombre, descripción o tags</h3>
+
+<section class="flex flex-col gap-4 mt-4">
+    <input type="text" placeholder="Buscar gifs"
+        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        (keyup.enter)="onSearch(txtSearch.value)" [value]="lastSearch()" #txtSearch>
+</section>
+
+<section class="py-5">
+    @if (gifsFacade.isLoading()) {
+    <p>Cargando...</p>
+    } @else if (gifsFacade.error()) {
+    <p class="text-red-500">{{ gifsFacade.error() }}</p>
+    } @else if (gifsFacade.searchedGifs().length === 0 && lastSearch().length > 0) {
+    <p>No se encontraron gifs</p>
+    } @else {
+    <gifs-gif-list [gifs]="gifsFacade.searchedGifs()" />
+    }
+</section>
