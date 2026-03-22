@@ -1,11 +1,15 @@
+<h2 class="text-2xl font-bold mt-5">Trending Gifs</h2>
+<h3 class="text-sm text-gray-500">Gifs más populares del momento</h3>
+
 <section class="py-5">
-    @if (gifsFacade.isLoading()) {
+    @if (gifsFacade.isLoading() && gifsFacade.trendingGifs().length === 0) {
     <p>Cargando...</p>
     }@else if (gifsFacade.error()) {
     <p class="text-red-500">{{ gifsFacade.error() }}</p>
     } @else if (gifsFacade.trendingGifs().length === 0) {
     <p>No se encontraron gifs</p>
     } @else {
-    <gifs-gif-list [gifs]="gifsFacade.trendingGifs()" />
+    <gifs-gif-list [gifs]="gifsFacade.trendingGifs()" (scrollEnd)="onScrollEnd()"
+        (scrollPosition)="onScrollPosition($event)" [initScrollPosition]="scrollPosition()" />
     }
 </section>

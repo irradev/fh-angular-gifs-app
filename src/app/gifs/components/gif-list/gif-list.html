@@ -1,5 +1,13 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-    @for (gif of gifs(); track gif.id) {
-    <gifs-gif-list-item [gif]="gif" />
+<div class="h-[calc(100vh-115px)]  overflow-y-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+    (scroll)="onScroll($event)" #scrollContainer>
+
+    @for (group of masonryGifs(); track $index) {
+    <div class="grid gap-4">
+        @for (gif of group; track gif.id) {
+        <div>
+            <img class="h-full w-full rounded-lg object-cover" [src]="gif.url" [alt]="gif.title" />
+        </div>
+        }
+    </div>
     }
 </div>

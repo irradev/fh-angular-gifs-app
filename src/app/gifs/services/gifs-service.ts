@@ -32,9 +32,10 @@ export class GifsService {
     //     this.loadTrendingGifs();
     // }
 
-    loadTrendingGifs() {
+    loadTrendingGifs(offset: number = 0) {
+        const params = { ...this.defaultParams, offset };
         return this.http.get<GiphyResponse>(`${this.url}/gifs/trending`, {
-            params: this.defaultParams
+            params
         }).pipe(
             map(res => GifMapper.mapGiphyResponseToGifArray(res)));
     }

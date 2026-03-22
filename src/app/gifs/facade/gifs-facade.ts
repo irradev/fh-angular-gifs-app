@@ -17,8 +17,10 @@ export class GifsFacade {
     public searchedGifs = signal<Gif[]>([]);
     public searchedHistory = signal<Record<string, Gif[]>>({});
     public searchedHistoryKeys = computed(() => Object.keys(this.searchedHistory()));
-    public isLoading = signal<boolean>(true);
+    public isLoading = signal<boolean>(false);
+    public page = signal<number>(0);
     public error = signal<string | null>(null);
+
 
     constructor() {
         this.loadTrendingGifs();
@@ -33,10 +35,16 @@ export class GifsFacade {
         this.storageService.set(SEARCHED_HISTORY_KEY, history);
     });
 
-    private loadTrendingGifs() {
-        this.gifsService.loadTrendingGifs().subscribe({
+    public loadTrendingGifs() {
+
+        if (this.isLoading()) return;
+
+        this.isLoading.set(true);
+        this.error.set(null);
+
+        this.gifsService.loadTrendingGifs(this.page() * 20).subscribe({
             next: (gifs) => {
-                this.trendingGifs.set(gifs);
+                this.trendingGifs.update((prevGifs) => [...prevGifs, ...gifs]);
                 this.isLoading.set(false);
             },
             error: (error) => {
@@ -54,6 +62,9 @@ export class GifsFacade {
     }
 
     searchGifs(query: string) {
+
+        if (this.isLoading()) return;
+
         if (this.searchedHistory()[query]) {
             this.searchedGifs.set(this.searchedHistory()[query]);
             this.isLoading.set(false);

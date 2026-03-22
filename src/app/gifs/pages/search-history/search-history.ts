@@ -20,6 +20,4 @@ export default class SearchHistory {
 
   public history = computed(() => this.gifsFacade.getHistoryByQuery(this.query()?.['query'] || ''));
 
-
-
 }

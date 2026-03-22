@@ -21,11 +21,12 @@ Aplicación web para buscar, visualizar y gestionar GIFs utilizando la API de Gi
 
 ---
 
-## 📦 Instalación y ejecución
+## 📦 Instalación
 
 ```bash
+git clone https://github.com/irradev/fh-angular-gifs-app.git
+cd fh-angular-gifs-app
 npm install
-ng serve -o
 ```
 
 ---
@@ -33,6 +34,8 @@ ng serve -o
 ## ⚠️ Configuración importante (API Key)
 
 Este proyecto utiliza una API Key de Giphy que **NO está incluida en el repositorio por seguridad**.
+
+Para obtener una API Key de Giphy, visita: https://developers.giphy.com/dashboard/
 
 Debes crear manualmente el archivo:
 
